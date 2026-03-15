@@ -8,11 +8,26 @@ using TMPro;
 
 public class XtTcpServer : MonoBehaviour
 {
+    public static XtTcpServer Instance { get; private set; }
+
     private TcpListener _listener;
     private TcpClient _client;
     private StreamReader _reader;
 
     [SerializeField] private TMP_Text _serverText;
+
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
+    }
 
 
     void Start()

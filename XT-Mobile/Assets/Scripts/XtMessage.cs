@@ -6,7 +6,6 @@ using UnityEngine;
 public class XtMessage
 {
     public double timestamp;
-    public string session;
-    public Vector3 position;
-    public Quaternion rotation;
+    public ArFrame arFrame;
+    public TouchFrame touchFrame;
 }
