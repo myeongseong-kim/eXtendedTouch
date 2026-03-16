@@ -7,5 +7,5 @@ public class XtMessage
 {
     public double timestamp;
     public ArFrame arFrame;
-    public TouchFrame touchFrame;
+    // public TouchFrame touchFrame;
 }
