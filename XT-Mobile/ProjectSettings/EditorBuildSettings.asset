@@ -4,7 +4,19 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ClientConnectionScene.unity
+    guid: c0bed96d3cea167418b1b8cdd40d4bdb
+  - enabled: 1
+    path: Assets/Scenes/ClientMainScene.unity
+    guid: db74d1d4b41dd4d49a5a768b1e5e739e
+  - enabled: 1
+    path: Assets/Scenes/ServerConnectionScene.unity
+    guid: 9479c6f84baebf8479c2125595203080
+  - enabled: 1
+    path: Assets/Scenes/ServerMainScene.unity
+    guid: a10b0093ce571364aa5cdfa4c0118da8
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: bb910890a55ddf24c8d0f81a69163423, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
