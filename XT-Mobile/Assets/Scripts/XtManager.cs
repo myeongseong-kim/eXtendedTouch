@@ -22,4 +22,9 @@ public class XtManager : MonoBehaviour
         _indicatorObject.transform.position = position;
         _indicatorObject.transform.rotation = rotation;
     }
+
+    public void SetScreenSize(float width, float height)
+    {
+        _indicatorObject.transform.localScale = new Vector3(width, height, 0.01f);
+    }
 }
