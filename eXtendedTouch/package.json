@@ -1,0 +1,9 @@
+{
+  "author": "Myeongseong Kim",
+  "dependencies": {},
+  "description": "Shared scripts for eXtended Touch",
+  "displayName": "eXtended Touch",
+  "name": "com.myeongseongkim.extendedtouch",
+  "unity": "6000.0",
+  "version": "0.1.0"
+}
