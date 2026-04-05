@@ -1,7 +1,9 @@
 {
   "name": "com.myeongseongkim.extendedtouch",
   "rootNamespace": "",
-  "references": [],
+  "references": [
+    "Unity.TextMeshPro"
+  ],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": true,
