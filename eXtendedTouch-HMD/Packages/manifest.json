@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.myeongseongkim.extendedtouch": "file:../../eXtendedTouch",
     "com.meta.xr.sdk.all": "85.0.0",
     "com.unity.burst": "1.8.29",
     "com.unity.collab-proxy": "2.11.2",
