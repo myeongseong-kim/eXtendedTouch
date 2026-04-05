@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.myeongseongkim.extendedtouch": {
+      "version": "file:../../eXtendedTouch",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
       "version": "2.11.2",
       "depth": 0,
