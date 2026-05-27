@@ -5083,7 +5083,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Connected
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5608,6 +5608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1007846744}
   - component: {fileID: 1007846745}
+  - component: {fileID: 1007846746}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -5642,6 +5643,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e15e097dc74c6844945b15a0b49a773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1007846746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007846743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804ca12b9c6fdd54e908237cd09a4f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pca: {fileID: 789928250}
+  _tagPrefab: {fileID: 4971476945147391662, guid: 67112799fafc1244180f26bbb92d3307, type: 3}
+  _tagSize: 0.02
 --- !u!1 &1014922929
 GameObject:
   m_ObjectHideFlags: 0
