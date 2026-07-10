@@ -9,6 +9,7 @@ namespace XT {
 public static class XtNetwork
 {
     public static readonly int XT_PORT = 22612;
+    public static readonly string XT_DISCOVERY_REQUEST = "XT";
 
     public static string GetLocalIPv4()
     {

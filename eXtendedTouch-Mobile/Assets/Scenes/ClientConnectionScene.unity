@@ -164,6 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1977180261f9714283c2e71158d4d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _serverIpInputField: {fileID: 1984701336}
+  _discoverButton: {fileID: 1076985661}
 --- !u!114 &382972796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1268,7 +1270,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnSelect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 382972795}
+        m_TargetAssemblyTypeName: XT.ClientController, com.myeongseongkim.extendedtouch
+        m_MethodName: Discover
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnDeselect:
     m_PersistentCalls:
       m_Calls: []

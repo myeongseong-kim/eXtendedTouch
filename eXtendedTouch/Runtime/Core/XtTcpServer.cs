@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using XT;
 
 
@@ -13,6 +14,7 @@ public class XtTcpServer : MonoBehaviour
     public static XtTcpServer Instance { get; private set; }
 
     private TcpListener _listener;
+    private UdpClient _discoveryUdp;
     private TcpClient _client;
     private StreamReader _reader;
     private StreamWriter _writer;
@@ -49,6 +51,7 @@ public class XtTcpServer : MonoBehaviour
     void Start()
     {
         StartServer();
+        StartDiscovery();
 
         Debug.Log($"[SERVER] Listening on {_serverIp}:{_port}");
     }
@@ -57,6 +60,8 @@ public class XtTcpServer : MonoBehaviour
     void Update()
     {
         if (_listener == null) return;
+
+        HandleDiscovery();
 
         if (_client == null)
         {
@@ -74,6 +79,56 @@ public class XtTcpServer : MonoBehaviour
     void OnApplicationQuit()
     {
         StopServer();
+    }
+
+    private void StartDiscovery()
+    {
+        try
+        {
+            _discoveryUdp = new UdpClient();
+            _discoveryUdp.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            _discoveryUdp.Client.Bind(new IPEndPoint(IPAddress.Any, _port));
+
+            Debug.Log($"[SERVER] UDP discovery listening on port {_port}");
+        }
+        catch (Exception e)
+        {
+            OnErrorOccurred(e);
+            StopDiscovery();
+        }
+    }
+
+    private void HandleDiscovery()
+    {
+        if (_discoveryUdp == null) return;
+
+        try
+        {
+            while (_discoveryUdp.Available > 0)
+            {
+                IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                byte[] requestBytes = _discoveryUdp.Receive(ref remoteEndPoint);
+                string request = Encoding.UTF8.GetString(requestBytes);
+
+                if (request != XtNetwork.XT_DISCOVERY_REQUEST) continue;
+
+                string response = _serverIp;
+                byte[] responseBytes = Encoding.UTF8.GetBytes(response);
+                _discoveryUdp.Send(responseBytes, responseBytes.Length, remoteEndPoint);
+
+                Debug.Log($"[SERVER] Discovery response sent to {remoteEndPoint.Address}:{remoteEndPoint.Port}");
+            }
+        }
+        catch (Exception e)
+        {
+            OnErrorOccurred(e);
+        }
+    }
+
+    private void StopDiscovery()
+    {
+        _discoveryUdp?.Close();
+        _discoveryUdp = null;
     }
 
 
@@ -199,6 +254,8 @@ public class XtTcpServer : MonoBehaviour
 
         _listener?.Stop();
         _listener = null;
+
+        StopDiscovery();
     }
 
 

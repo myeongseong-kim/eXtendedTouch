@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using XT;
 
 
@@ -28,6 +29,7 @@ public class XtTcpClient : MonoBehaviour
     public (string ip, int port) ClientAddress => (_clientIp, _port);
 
     public bool IsConnected => _client != null && _reader != null && _writer != null;
+    private float _DiscoverTimeoutSeconds = 1f;
 
 
     void Awake()
@@ -67,6 +69,51 @@ public class XtTcpClient : MonoBehaviour
         Disconnect();
     }
 
+
+    public bool Discover()
+    {
+        try
+        {
+            using (UdpClient discoveryUdp = new UdpClient())
+            {
+                discoveryUdp.EnableBroadcast = true;
+                discoveryUdp.Client.ReceiveTimeout = Mathf.CeilToInt(_DiscoverTimeoutSeconds * 1000f);
+
+                byte[] requestBytes = Encoding.UTF8.GetBytes(XtNetwork.XT_DISCOVERY_REQUEST);
+                IPEndPoint broadcastEndPoint = new IPEndPoint(IPAddress.Broadcast, _port);
+
+                discoveryUdp.Send(requestBytes, requestBytes.Length, broadcastEndPoint);
+                Debug.Log($"[CLIENT] Discovery request sent on UDP port {_port}");
+
+                IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                byte[] responseBytes = discoveryUdp.Receive(ref remoteEndPoint);
+                string response = Encoding.UTF8.GetString(responseBytes);
+
+                if (!IPAddress.TryParse(response, out _))
+                {
+                    Debug.LogWarning($"[CLIENT] Discovery ignored invalid response from {remoteEndPoint.Address}");
+                    return false;
+                }
+
+                _serverIp = response;
+
+                Debug.Log($"[CLIENT] Server discovered at {_serverIp}:{_port}");
+                return true;
+            }
+        }
+        catch (Exception e)
+        {
+            OnErrorOccurred(e);
+            Debug.LogWarning("[CLIENT] Discovery failed: server IP is not found");
+            return false;
+        }
+    }
+
+
+    public string GetServerIp()
+    {
+        return _serverIp;
+    }
 
     public void SetServerIp(string ip)
     {
